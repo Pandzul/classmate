@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
 
 const classes = [
   {
@@ -34,6 +35,18 @@ const classes = [
 ];
 
 export default function SkripsiOnline() {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      controls.start({ scale: 1 + scrollY * 0.0005 });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [controls]);
+
   return (
     <div className="min-h-screen p-6 bg-gray-100">
       {/* Navbar */}
@@ -47,14 +60,21 @@ export default function SkripsiOnline() {
             <h2 className="text-xl font-bold text-center mb-4">{classItem.name}</h2>
             <div className="flex justify-center gap-4 flex-wrap">
               {classItem.students.map((student) => (
-                <div key={student.id} className="text-center">
-                  <img
+                <motion.div
+                  key={student.id}
+                  className="text-center"
+                  animate={controls}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.img
                     src={student.img}
                     alt={student.name}
                     className="w-20 h-20 rounded-full object-cover border-2 border-gray-300"
+                    whileHover={{ scale: 1.2 }}
+                    transition={{ duration: 0.3 }}
                   />
                   <p className="mt-2 text-sm font-semibold">{student.name}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
