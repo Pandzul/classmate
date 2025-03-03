@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 
 const classes = [
@@ -55,8 +55,8 @@ export default function SkripsiOnline() {
       </nav>
 
       <div className="max-w-5xl mx-auto mt-24 space-y-8">
-        {classes.map((classItem, index) => (
-          <div key={index} className="bg-white shadow-md rounded-lg p-4">
+        {classes.map((classItem) => (
+          <div key={classItem.name} className="bg-white shadow-md rounded-lg p-4">
             <h2 className="text-xl font-bold text-center mb-4">{classItem.name}</h2>
             <div className="flex justify-center gap-4 flex-wrap">
               {classItem.students.map((student) => (
